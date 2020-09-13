@@ -19,6 +19,6 @@ public class User {
     @Column(name = "lastName")
     private String lastName;
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
 }

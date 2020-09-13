@@ -24,8 +24,15 @@ public class UserService {
     }
 
     //Get user by id
-    public Optional<User> findUser(long id) {
-        return userRepository.findById(id);
+    public User findUser(long id) {
+        Optional<User> optional = userRepository.findById(id);
+        User user = null;
+        if (optional.isPresent()) {
+            user = optional.get();
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+        return user;
     }
     //Post user
 
@@ -41,12 +48,11 @@ public class UserService {
     //Update user
     public void updateUser(User user, long id) {
         userRepository.findById(id)
-                .map(oldUser -> {
-                    oldUser.setFirstName(user.getFirstName());
-                    oldUser.setLastName(user.getLastName());
-                    oldUser.setAge(user.getAge());
-                    return userRepository.save(oldUser);
-                }).
-                orElseGet(() -> userRepository.save(user));
+                .map(tempUser -> {
+                    tempUser.setFirstName(user.getFirstName());
+                    tempUser.setLastName(user.getLastName());
+                    tempUser.setAge(user.getAge());
+                    return userRepository.save(tempUser);
+                });
     }
 }
