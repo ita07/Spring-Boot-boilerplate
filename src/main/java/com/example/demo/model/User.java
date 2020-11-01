@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.UUID;
